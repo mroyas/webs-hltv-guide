@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>hltv · 主题阅读笔记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5faf9;
+            color: #1e2b2a;
+            line-height: 1.6;
+            padding: 2rem 1.2rem;
+        }
+
+        .page-grid {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* header */
+        .hero-card {
+            background: #e0f0ed;
+            border-radius: 32px;
+            padding: 2.4rem 2rem 2.8rem;
+            box-shadow: 0 8px 18px rgba(25, 90, 80, 0.08);
+            border: 1px solid rgba(60, 140, 125, 0.2);
+            transition: box-shadow 0.2s;
+        }
+
+        .hero-card h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #155a50;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-card .subhead {
+            font-size: 1.1rem;
+            color: #2b6b62;
+            background: rgba(255, 255, 255, 0.45);
+            display: inline-block;
+            padding: 0.2rem 1.2rem 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin-bottom: 1rem;
+            font-weight: 450;
+        }
+
+        .hero-card p {
+            max-width: 680px;
+            color: #1e4942;
+            font-size: 1rem;
+        }
+
+        /* content cards */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 28px;
+            padding: 1.8rem 1.8rem 2.2rem;
+            box-shadow: 0 4px 10px rgba(0, 60, 50, 0.04);
+            border: 1px solid #d5e7e3;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .topic-card:hover {
+            border-color: #7bbbb0;
+            box-shadow: 0 8px 16px rgba(40, 130, 115, 0.06);
+        }
+
+        .topic-card h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #1d6b5e;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .topic-card h2::before {
+            content: "◈";
+            color: #48a595;
+            font-size: 1.2rem;
+            margin-right: 0.2rem;
+        }
+
+        .topic-card .meta-line {
+            font-size: 0.8rem;
+            color: #618f86;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.7rem;
+            border-left: 3px solid #92cdc0;
+            padding-left: 0.7rem;
+            font-weight: 380;
+        }
+
+        .topic-card p {
+            margin-bottom: 0.9rem;
+            color: #1f3c38;
+        }
+
+        .quote-bubble {
+            background: #e9f6f2;
+            border-radius: 20px 20px 20px 4px;
+            padding: 1rem 1.4rem;
+            margin: 1.1rem 0 0.6rem;
+            font-style: normal;
+            border-left: 4px solid #399983;
+            color: #1a4f46;
+            font-weight: 400;
+            box-shadow: inset 0 1px 3px rgba(30, 100, 85, 0.06);
+        }
+
+        .quote-bubble strong {
+            color: #0e5e50;
+        }
+
+        .inline-link {
+            color: #1d8572;
+            text-decoration: none;
+            font-weight: 470;
+            border-bottom: 1px solid #9ccfc3;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .inline-link:hover {
+            border-bottom: 1px solid #1d8572;
+            color: #0b5c4e;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0.5rem 0 0.2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem 1.2rem;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            color: #1d463f;
+        }
+
+        .feature-list li::before {
+            content: "▹";
+            color: #40a28e;
+            font-weight: 600;
+        }
+
+        .faq-mini {
+            margin: 1.2rem 0 0.2rem;
+            background: #f2fbf9;
+            border-radius: 18px;
+            padding: 1rem 1.4rem;
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.6rem;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            color: #175f52;
+            cursor: pointer;
+            padding: 0.2rem 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-mini summary::before {
+            content: "↳";
+            color: #3dab93;
+            margin-right: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faq-mini details p {
+            margin: 0.5rem 0 0.2rem 1.6rem;
+            color: #1c5146;
+        }
+
+        .sentence-anchor {
+            background: white;
+            border-radius: 20px;
+            padding: 1.6rem 1.8rem;
+            border: 1px solid #cae3dd;
+            text-align: center;
+        }
+
+        .sentence-anchor p {
+            font-size: 1.1rem;
+            color: #1a4941;
+        }
+
+        .footer-note {
+            margin-top: 1rem;
+            text-align: right;
+            font-size: 0.85rem;
+            color: #6f948b;
+            border-top: 1px solid #cfe2dd;
+            padding-top: 1.5rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 620px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .hero-card {
+                padding: 1.6rem 1.2rem;
+            }
+            .hero-card h1 {
+                font-size: 1.9rem;
+            }
+            .topic-card {
+                padding: 1.4rem 1.2rem;
+            }
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+            .quote-bubble {
+                padding: 0.8rem 1rem;
+            }
+            .faq-mini {
+                padding: 0.8rem 1rem;
+            }
+            .sentence-anchor {
+                padding: 1.2rem 1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .hero-card h1 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-grid">
+
+    <!-- hero -->
+    <header class="hero-card">
+        <div class="subhead">✺ 阅读笔记 · 主题漫谈</div>
+        <h1>hltv 背后：赛事与社区</h1>
+        <p>从数据到叙事，电子竞技的观看方式不止一种。这一篇围绕 <a href="https://webs-hltv.com" class="inline-link">hltv</a> 所连接的生态，聊一聊信息密度、赛程结构以及社区语言。</p>
+    </header>
+
+    <!-- 正文卡片区 -->
+    <div class="content-section">
+
+        <!-- 第一段 切入 -->
+        <article class="topic-card">
+            <h2>不止是比分板</h2>
+            <div class="meta-line">从统计到语境 · 一个观察入口</div>
+            <p>很多人第一次接触 <strong>hltv</strong> 是为了查赛果、看数据图表。但真正让这个站点区别于一般统计平台的是「语境」——每一场比赛的排位权重、选手近期状态、地图池的博弈倾向，这些信息往往藏在数字之外。</p>
+            <p>当我们把目光投向更完整的页面结构，会发现赛事预告下方的历史交锋记录、地图选用率、队伍在关键局的经济曲线，这些模块共同构成了一种叙事。而社区讨论区里的即时评论，则是另一层活语料。</p>
+            <div class="quote-bubble">
+                <strong>引用提示</strong> —— 一位长期跟踪赛事的观众说：“看demo复盘之前，我习惯先翻两页hltv上的讨论串，很多战术细节是被观众先挖出来的。”
+            </div>
+            <p>这种由数据、文本和社群反馈共同搭建的信息流，让赛前分析和赛后复盘之间有了自然的承接。了解这个生态，就是在理解电子竞技的“语言”。</p>
+        </article>
+
+        <!-- 第二段 特点与场景 -->
+        <article class="topic-card">
+            <h2>信息锚点与时间线</h2>
+            <div class="meta-line">结构化的观赛准备 · 三个常见场景</div>
+            <p>假设你正在准备一次赛事直播的观赛计划：</p>
+            <ul class="feature-list">
+                <li>查询各队伍近期交手记录与地图胜率</li>
+                <li>阅读社区预测贴里的阵容讨论</li>
+                <li>赛后翻看表现数据并结合高光时间轴</li>
+            </ul>
+            <p>这三个步骤对应着 <a href="https://webs-hltv.com" class="inline-link">hltv</a> 页面上的三个典型模块：赛事页、论坛子版、以及选手个人数据卡。每个模块之间通过超链接和标签互相引用，形成可追溯的信息链。</p>
+            <p>这种设计对移动端用户比较友好——不必来回切换应用，就能在单一站点内完成从“赛前预习”到“赛后回溯”的闭环。对于希望深入理解比赛逻辑的人来说，这是一种低负担的内容密度。</p>
+        </article>
+
+        <!-- 第三段 引用+FAQ 摘要 -->
+        <article class="topic-card">
+            <h2>社区语言与知识传递</h2>
+            <div class="meta-line">一些反复出现的讨论主题</div>
+            <p>在相关讨论区中，有一些话题会周期性出现：阵容轮换后的化学反应、不同赛事体系的积分换算、以及版本更新对地图控制权的影响。这些讨论往往不是零散的吐槽，而是带有引用来源和比赛编号的“小型分析帖”。</p>
+
+            <div class="faq-mini">
+                <details>
+                    <summary>为什么赛事页上有时会标注“服务器延迟”备注？</summary>
+                    <p>这是为了区分线上赛与线下赛的环境差异。社区里常以此作为讨论比赛节奏的参考因素之一。</p>
+                </details>
+                <details>
+                    <summary>数据面板里的“KAST”是什么？</summary>
+                    <p>KAST 是击杀、助攻、存活、被闪光弹影响的综合参数，常用于衡量一位选手的稳定性。很多讨论会结合KAST与回合胜率做交叉对比。</p>
+                </details>
+                <details>
+                    <summary>如何快速找到队伍近期的地图BP规律？</summary>
+                    <p>在队伍页面的“地图数据”一栏，会显示近三个月的首ban、首选倾向。社区里也常有用户整理成时间线形式的帖子。</p>
+                </details>
+            </div>
+
+            <div class="quote-bubble" style="margin-top: 0.6rem;">
+                <strong>引用提示</strong> —— “每次大赛结束，我都会花半小时把hltv上相关的赛后讨论串按时间排序看一遍，很多关于选手决策的解读是赛后采访里不会提到的。”
+            </div>
+
+            <p>这种由用户主动梳理的“知识碎片”，经过反复补充和反驳，逐渐形成了一种非正式的文献库。它不追求权威，但保持着可溯源的特质。</p>
+        </article>
+
+        <!-- 访问句 卡片 -->
+        <div class="sentence-anchor">
+            <p>如果你想从数据与讨论的交汇处进入这个主题，<a href="https://webs-hltv.com" class="inline-link">hltv</a> 提供了一个持续更新的信息起点。赛事日历、选手档案、社区留言板，三者之间没有割裂感。</p>
+        </div>
+
+    </div>
+
+    <footer class="footer-note">
+        <span>写于一次观赛间隙 · 关于信息流动与阅读习惯</span>
+    </footer>
+
+</div>
+</body>
+</html>
